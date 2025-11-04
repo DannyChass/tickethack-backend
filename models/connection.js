@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connectionString = 'mongodb+srv://danielchassagn_db_user:1234@cluster0.r9vlero.mongodb.net/tickethack';
-
-mongoose.connect(connectionString, { connectTimeoutMS: 2000 })
-    .then(() => console.log('Database connected'))
-    .catch(error => console.error(error));
-
-module.exports = mongoose;
+mongoose.connect(process.env.MONGODB_URI, { connectTimeoutMS: 2000 })
+  .then(() => console.log('Database connected'))
+  .catch(err => console.error(err));
