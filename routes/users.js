@@ -83,4 +83,24 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.delete('/removeTripFromUserCart', async (req, res) => {
+  const { userId, tripId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    }
+
+    user.cart = user.cart.filter(id => id.toString() !== tripId);
+
+    await user.save();
+
+    res.json({ message: 'Voyage supprimé du panier', cart: user.cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;
