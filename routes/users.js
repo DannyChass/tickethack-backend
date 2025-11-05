@@ -14,7 +14,7 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/:id', async (req, res) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).populate('cart');
   if (user) {
     await res.json({ success: true, result: user });
   } else {
