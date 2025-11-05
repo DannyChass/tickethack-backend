@@ -13,6 +13,15 @@ router.get('/', async function (req, res, next) {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    await res.json({ success: true, result: user });
+  } else {
+    res.json({ success: false })
+  }
+})
+
 //POST - Add a new user
 router.post('/addUser', async (req, res) => {
   try {
